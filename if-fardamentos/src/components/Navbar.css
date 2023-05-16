@@ -1,0 +1,8 @@
+.link {
+    color: white;
+    padding: 15px;
+}
+
+.link:hover {
+    background-color: black;
+}
