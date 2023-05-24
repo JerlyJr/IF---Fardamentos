@@ -1,7 +1,6 @@
-import '../css/global.css'
-import '../css/pedidos.css'
+import styles from './Pedidos.module.css'
 
-import ImgPedidos from '../img/pedido.png'
+import ImgPedidos from '../../assets/pedido.png'
 
 const Pedidos = () => {
     return (

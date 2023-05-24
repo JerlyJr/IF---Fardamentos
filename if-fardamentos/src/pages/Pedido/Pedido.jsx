@@ -1,5 +1,4 @@
-import '../css/global.css'
-import '../css/pedido.css'
+import styles from './Pedido.module.css'
 
 const Pedido = () => {
     return (

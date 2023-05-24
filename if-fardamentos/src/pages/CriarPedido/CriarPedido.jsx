@@ -1,5 +1,4 @@
-import '../css/global.css'
-import '../css/criar_pedido.css'
+import styles from './CriarPedido.module.css'
 
 const CriarPedido = () => {
     return (
