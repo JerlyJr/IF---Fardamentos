@@ -1,6 +1,7 @@
 .telaLogin {
-    margin-top: 10vh;
-    width: 400px;
+    margin: auto;
+    width: 30%;
+    min-width: 350px;
     background-color: rgb(83, 83, 83);
     border-radius: 2%;
     display: flex;
@@ -22,8 +23,8 @@
 }
 
 .logo img {
-    width: 130px;
-    height: 130px;
+    width: 193px;
+    height: 167px;
     margin-bottom: 2em;
 }
 
