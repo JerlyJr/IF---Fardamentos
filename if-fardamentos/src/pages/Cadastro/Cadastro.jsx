@@ -21,7 +21,7 @@ const Cadastro = () => {
     setErro('');
   
     const user = {
-      email: `${nomeUsuario}@exemplo.com`, // Usando o nome de usuário como email
+      email: `${nomeUsuario}@if.com`, // Usando o nome de usuário como email
       password: senha,
       displayName: nomeUsuario,
       isAdmin: isAdmin,

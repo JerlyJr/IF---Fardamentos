@@ -40,7 +40,7 @@ const Login = () => {
           </div>
           <form onSubmit={handleSubmit}>
             <div className={styles.caixaTexto}>
-              <span>Digite seu nome de usuário:</span>
+              <span>Digite seu nome de usuário (@if.com):</span>
               <input
                 type="text"
                 name="username"
