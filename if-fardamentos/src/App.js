@@ -15,7 +15,7 @@ import NotFound from './pages/NotFound/NotFound';
 import Cadastro from './pages/Cadastro/Cadastro';
 
 // Context
-import { AuthProvider } from './pages/context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 
 // Hooks
 import { useState, useEffect } from 'react';

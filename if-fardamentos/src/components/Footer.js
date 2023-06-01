@@ -1,7 +1,7 @@
 import styles from "./Footer.module.css"
 
 // hooks
-import { useAuthValue } from "../pages/context/AuthContext";
+import { useAuthValue } from "../context/AuthContext";
 
 
 const Footer = () => {
