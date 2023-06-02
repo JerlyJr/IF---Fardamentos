@@ -1,108 +1,149 @@
-import styles from './CriarPedido.module.css'
+import React, { useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import styles from './CriarPedido.module.css';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../firebase/config';
 
 const CriarPedido = () => {
-    return (
-        <>
-        <div class="background-image"></div>
-    <div class="fundo">
-        <div class="tela">
-            <div class="conteiner-esquerdo">
-                <input type="text" placeholder="Pesquisar"/>
-                    <a href="pedido.html">
-                        <div class="pedidos">
-                            <div class="conteiner-pedido1">
-                                <div class="nome-pedido">Pedido 01</div>
-                                <div class="numero-pedido">#001</div>
-                            </div>
-                            <div class="conteiner-pedido2">
-                                <div class="nome-cliente">Cliente 01</div>
-                                <div class="itens-pedido">Item 01</div>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="pedidos">
-                        <div class="conteiner-pedido1">
-                            <div class="nome-pedido">Pedido 02</div>
-                            <div class="numero-pedido">#002</div>
-                        </div>
-                        <div class="conteiner-pedido2">
-                            <div class="nome-cliente">Cliente 02</div>
-                            <div class="itens-pedido">Item 02</div>
-                        </div>
-                    </div>
-                    <div class="pedidos">
-                        <div class="conteiner-pedido1">
-                            <div class="nome-pedido">Pedido 03</div>
-                            <div class="numero-pedido">#003</div>
-                        </div>
-                        <div class="conteiner-pedido2">
-                            <div class="nome-cliente">Cliente 03</div>
-                            <div class="itens-pedido">Item 03</div>
-                        </div>
-                    </div>
-                    <div class="pedidos">
-                        <div class="conteiner-pedido1">
-                            <div class="nome-pedido">Pedido 04</div>
-                            <div class="numero-pedido">#004</div>
-                        </div>
-                        <div class="conteiner-pedido2">
-                            <div class="nome-cliente">Cliente 04</div>
-                            <div class="itens-pedido">Item 04</div>
-                        </div>
-                </div>
-            </div>
+  const [cliente, setCliente] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [data, setData] = useState('');
+  const [item, setItem] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [quantidade, setQuantidade] = useState(0);
+  const [valorUnitario, setValorUnitario] = useState(0);
+  const [preco, setPreco] = useState(0);
+  const [redirectToPedidos, setRedirectToPedidos] = useState(false);
 
-            <div class="conteiner-direito">
-                <div class="linha1">
-                    <div class="nome-pedido">Pedido</div>
-                    <div class="numero-pedido">#003</div>
-                </div>
-                <div class="linha2">
-                    <div class="componente1">
-                        <div class="conteiner-cliente">
-                            <div class="nome-cliente">Cliente:</div>
-                            <input type="text" placeholder="Nome do Cliente"/>
-                        </div>
-                        <div class="conteiner-telefone">
-                            <div class="telefone">Telefone:</div>
-                            <input type="text" placeholder="(XX) X XXXX-XXXX"/>
-                        </div>
-                    </div>
-                    <div class="componente2">Data: 30/03/23</div>
-                </div>
-                <div class="linha3">
-                    <div class="componente1">
-                        <div class="topico">Item</div>
-                        <div class="conteudo"><input type="text" placeholder="Nome do item"/></div>
-                    </div>
-                    <div class="componente2">
-                        <div class="topico">Descrição</div>
-                        <div class="conteudo"><input type="text" placeholder="Descreva características do pedido"/></div>
-                    </div>
-                    <div class="componente3">
-                        <div class="topico">Quantidade</div>
-                        <div class="conteudo">
-                            <div class="txt1"><input type="number" id="numero" name="numero" min="0" max="10" placeholder="0"/></div>
-                            <div class="txt2">Remover</div>
-                        </div>
-                    </div>
-                    <div class="componente4">
-                        <div class="topico">Valor Unitário</div>
-                        <div class="conteudo"><input type="text" placeholder="R$ 00,00"/></div>
-                    </div>
-                    <div class="componente5">
-                        <div class="topico">Preço</div>
-                        <div class="conteudo"><input type="text" placeholder="R$ 00,00"/></div>
-                    </div>
-                </div>
-                <div class="linha4">
-                    <button type="submit">Adicionar novo item</button>
-                </div>
-            </div>
+  const handleValorUnitarioChange = (e) => {
+    const value = parseFloat(e.target.value);
+    setValorUnitario(value);
+
+    const calculatedPrice = value * quantidade;
+    setPreco(calculatedPrice);
+  };
+
+  const handleQuantidadeChange = (e) => {
+    const value = parseInt(e.target.value);
+    setQuantidade(value);
+
+    const calculatedPrice = valorUnitario * value;
+    setPreco(calculatedPrice);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Criar um objeto com os dados do pedido
+    const pedido = {
+      cliente,
+      telefone,
+      data,
+      item,
+      descricao,
+      quantidade,
+      valorUnitario,
+      preco,
+    };
+
+    try {
+      // Enviar o pedido para o Firebase
+      const docRef = await addDoc(collection(db, 'pedidos'), pedido);
+      console.log('Pedido cadastrado com ID: ', docRef.id);
+
+      // Ativar o redirecionamento para a página de pedidos
+      setRedirectToPedidos(true);
+    } catch (error) {
+      console.error('Erro ao cadastrar o pedido: ', error);
+    }
+  };
+
+  if (redirectToPedidos) {
+    return <Navigate to="/pedidos" />;
+  }
+
+  return (
+    <>
+      <div className="background-image"></div>
+      <div className="fundo">
+        <div className={styles.tela}>
+          <div className={styles.conteiner_direito}>
+            <form onSubmit={handleSubmit}>
+              <span>Cliente:</span>
+              <input
+                type="text"
+                name="cliente"
+                id="cliente"
+                placeholder="Cliente"
+                value={cliente}
+                onChange={(e) => setCliente(e.target.value)}
+              />
+              <span>Telefone:</span>
+              <input
+                type="text"
+                name="telefone"
+                id="telefone"
+                placeholder="Telefone"
+                value={telefone}
+                onChange={(e) => setTelefone(e.target.value)}
+              />
+
+              <span>Data de entrega:</span>
+              <input
+                type="date"
+                name="date"
+                id="date"
+                placeholder="Data"
+                value={data}
+                onChange={(e) => setData(e.target.value)}
+              />
+              <span>Item:</span>
+              <input
+                type="text"
+                name="item"
+                id="item"
+                placeholder="Item"
+                value={item}
+                onChange={(e) => setItem(e.target.value)}
+              />
+
+              <span>Descrição:</span>
+              <input
+                type="textbox"
+                name="descricao"
+                id="descricao"
+                placeholder="Descrição"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+              />
+
+              <span>Quantidade:</span>
+              <input
+                type="number"
+                name="numero"
+                id="numero"
+                placeholder="Quantidade"
+                value={quantidade}
+                onChange={handleQuantidadeChange}
+              />
+
+              <span>Valor unitário:</span>
+              <input
+                type="number"
+                name="valorUnitario"
+                id="valorUnitario"
+                placeholder="Valor unitário"
+                value={valorUnitario}
+                onChange={handleValorUnitarioChange}
+              />
+              <p>O preço será {preco}.</p>
+              <button type="submit">Cadastrar</button>
+            </form>
+          </div>
         </div>
-    </div>
+      </div>
     </>
-    );
-}
+  );
+};
 
 export default CriarPedido;

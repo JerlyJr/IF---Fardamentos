@@ -1,5 +1,12 @@
-.telaLogin {
-    margin: auto;
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .telaLogin {
+    margin-top: 5vh;
     width: 30%;
     min-width: 350px;
     background-color: rgb(83, 83, 83);
@@ -10,9 +17,9 @@
     justify-content: center;
     box-shadow: 10px 10px 30px black;
     padding: 45px 10px;
-}
-
-.logo {
+  }
+  
+  .logo {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,54 +27,92 @@
     font-size: 16px;
     color: white;
     margin-bottom: 1em;
-}
-
-.logo img {
+  }
+  
+  .logo img {
     width: 193px;
     height: 167px;
     margin-bottom: 2em;
-}
-
-.caixaTexto {
+  }
+  
+  .caixaTexto {
     display: flex;
     flex-direction: column;
-    align-items: left;
     justify-content: center;
     text-align: start;
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 12px;
     color: white;
-}
-
-.caixaTexto input {
+  }
+  
+  .caixaTexto input {
     height: 30px;
     width: 200px;
     padding-left: 5%;
-    width: 95%;
     border-radius: 8px;
     border: none;
     margin-top: 4px;
     padding-left: 5px;
-}
-
-.botao {
+  }
+  
+  .botao {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: 10px;
-}
-
-.botao button {
+  }
+  
+  .botao button {
     border-radius: 10px;
     border: 1px solid black;
     background-color: red;
-    width: 100px;
-    height: 30px;
+    width: 150px; /* Ajuste a largura conforme necessário */
+    height: 40px; /* Ajuste a altura conforme necessário */
     color: white;
     font-weight: bold;
     cursor: pointer;
     font-size: 14px;
     border: none;
-}
+  }
+  
+  .span {
+    margin-top: 0.2em;
+  }
+  
+  .radios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  label {
+    display: flex;
+  }
+  
+  input[type="radio"] {
+    display: none;
+  }
+  
+  input[type="radio"] + label:before {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    position: relative;
+    margin-right: 5px;
+    background-color: #ddd;
+  }
+  
+  input[type="radio"]:checked + label:before {
+    border-color: #333;
+    background-color: #333;
+  }
+  
+  input[type="submit"] {
+    width: 20vh;
+  } 

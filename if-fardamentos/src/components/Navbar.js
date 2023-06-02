@@ -9,6 +9,8 @@ const Navbar = () => {
     logout();
   };
 
+  console.log(auth.currentUser);
+
   return (
     <div>
       {!auth.currentUser && (

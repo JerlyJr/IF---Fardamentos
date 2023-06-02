@@ -1,16 +1,14 @@
 import styles from '../Login/Login.module.css';
-
 import ImgLogo from '../../assets/logo.png';
 
 // Hooks
 import { useState, useEffect } from 'react';
-import { useAuthentication, auth } from '../../hooks/useAuthentication';
+import { useAuthentication } from '../../hooks/useAuthentication';
 
 const Cadastro = () => {
   const [nomeUsuario, setNomeUsuario] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false); // Estado para controlar o valor do input de privilégios administrativos
   const [erro, setErro] = useState('');
 
   const { createUser, error: authError, loading } = useAuthentication();
@@ -21,10 +19,9 @@ const Cadastro = () => {
     setErro('');
   
     const user = {
-      email: `${nomeUsuario}@if.com`, // Usando o nome de usuário como email
+      email: `${nomeUsuario}@if.com`,
       password: senha,
       displayName: nomeUsuario,
-      isAdmin: isAdmin,
     };
   
     if (senha !== confirmarSenha) {
@@ -34,7 +31,6 @@ const Cadastro = () => {
   
     try {
       const res = await createUser(user);
-      console.log(res);
     } catch (error) {
       console.log(error.message);
       setErro('Ocorreu um erro durante o registro. Tente novamente mais tarde.');
@@ -54,12 +50,12 @@ const Cadastro = () => {
         <div className={styles.telaLogin}>
           <div className={styles.logo}>
             <img src={ImgLogo} alt="Logo IF Fardamentos" />
-            <span>Seja bem-vindo!</span>
-            <span>Cadastre um usuário no sistema:</span>
+            <span className={styles.span}>Seja bem-vindo!</span>
+            <span className={styles.span}>Cadastre um usuário no sistema:</span>
           </div>
           <form onSubmit={handleSubmit}>
             <div className={styles.caixaTexto}>
-              <span>Digite seu nome de usuário:</span>
+              <span className={styles.span}>Digite seu nome de usuário:</span>
               <input
                 type="text"
                 name="nomeUsuario"
@@ -71,7 +67,7 @@ const Cadastro = () => {
               />
             </div>
             <div className={styles.caixaTexto}>
-              <span>Digite sua senha:</span>
+              <span className={styles.span}>Digite sua senha:</span>
               <input
                 type="password"
                 name="senha"
@@ -83,7 +79,7 @@ const Cadastro = () => {
               />
             </div>
             <div className={styles.caixaTexto}>
-              <span>Confirme a senha:</span>
+              <span className={styles.span}>Confirme a senha:</span>
               <input
                 type="password"
                 name="confirmarSenha"
@@ -93,29 +89,6 @@ const Cadastro = () => {
                 value={confirmarSenha}
                 onChange={(e) => setConfirmarSenha(e.target.value)}
               />
-            </div>
-            <div>
-              <span>Privilégios administrativos?</span>
-              <br />
-              <input
-                type="radio"
-                id="sim"
-                name="administrador"
-                value="sim"
-                checked={isAdmin} // Definindo o estado do input de acordo com o valor selecionado
-                onChange={() => setIsAdmin(true)}
-              />
-              <label htmlFor="sim"> Sim</label>
-              <br />
-              <input
-                type="radio"
-                id="nao"
-                name="administrador"
-                value="nao"
-                checked={!isAdmin} // Definindo o estado do input de acordo com o valor selecionado
-                onChange={() => setIsAdmin(false)}
-              />
-              <label htmlFor="nao"> Não</label>
             </div>
             <div className={styles.botao}>
               {!loading && (

@@ -35,13 +35,14 @@ const Login = () => {
         <div className={styles.telaLogin}>
           <div className={styles.logo}>
             <img src={ImgLogo} alt="Logo IF Fardamentos" />
-            <span>Seja bem-vindo!</span>
-            <span>Entre no sistema:</span>
+            <span className={styles.span}>Seja bem-vindo!</span>
+            <span className={styles.span}>Entre no sistema:</span>
           </div>
           <form onSubmit={handleSubmit}>
             <div className={styles.caixaTexto}>
-              <span>Digite seu nome de usuário (@if.com):</span>
+              <span className={styles.span}>Digite seu nome de usuário (@if.com):</span>
               <input
+              className={styles.input}
                 type="text"
                 name="username"
                 id="username"
@@ -51,7 +52,7 @@ const Login = () => {
               />
             </div>
             <div className={styles.caixaTexto}>
-              <span>Digite sua senha:</span>
+              <span className={styles.span}>Digite sua senha:</span>
               <input
                 type="password"
                 name="senha"

@@ -1,170 +1,57 @@
-    .conteiner-direito .linha1 {
-        margin-top: 3%;
-        width: 94%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        font-weight: bold;
-    }
+.tela {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
 
-    .linha2 {
-        margin-top: 3%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 94%;
-    }
+.conteiner_direito {
+  margin-top: 30vh;
+  background-color: #bdc0c2;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: rgb(212, 212, 212);
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+}
 
-    .linha2 .componente1 {
-        display: flex;
-        flex-direction: column;
-        align-items: left;
-        justify-content: space-between;
-    }
+.fundo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../../assets/fundo.png'); /* Substitua pela sua imagem de fundo */
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
 
-    .linha2 .componente1 .conteiner-cliente {
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 1%;
-    }
+.background-image {
+  opacity: 0.3;
+}
 
-    .linha2 .componente1 .conteiner-cliente input {
-        margin-left: 1%;
-        border-radius: 5px;
-        border-style: none;
-        background-color: white;
-    }
+input {
+  margin-top: 1em;
+}
 
-    .linha2 .componente1 .conteiner-telefone {
-        display: flex;
-        flex-direction: row;
-    }
+form {
+  width: 100%;
+}
 
-    .linha2 .componente1 .conteiner-telefone input {
-        margin-left: 1%;
-        border-radius: 5px;
-        border-style: none;
-        background-color: white
-    }
+button {
+  margin-top: 20px;
+}
 
-    .linha3 {
-        width: 94%;
-        margin-top: 2%;
-        display: flex;
-        flex-direction: row;
-        align-items: left;
-        justify-content: top;
-        height: 30%;
-    }
+span {
+  margin: 0;
+  margin-top: 2em;
+}
 
-    .linha3 .componente1 {
-        margin-right: 1%;
-        width: 17%;
-    }
-
-    .linha3 input {
-        background-color: #EBEBEB;
-        width: 100%;
-        border-style: none;
-        height: 100%;
-    }
-
-    .linha3 .componente2 {
-        margin-right: 1%;
-        width: 37%;
-    }
-
-    .linha3 .componente3 {
-        margin-right: 1%;
-        width: 15%;
-    }
-
-    .linha3 .componente3 .conteudo {
-        background-color: #EBEBEB;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .linha3 .componente3 .conteudo .txt1 {
-        position: absolute;
-        font-size: 10px;
-        font-weight: bold;
-    }
-
-    .linha3 .componente3 .conteudo .txt1 input {
-        text-align: center;
-    }
-
-    .linha3 .componente3 .conteudo .txt1 input::placeholder {
-        font-weight: bold;
-    }
-
-    .linha3 .componente3 .conteudo .txt2 {
-        display: flex;
-        align-items: end;
-        justify-content: center;
-        margin: 5%;
-        height: 100%;
-        width: 100%;
-        font-size: 8px;
-        font-weight: bold;
-        color: red;
-    }
-
-    .linha3 .componente4 {
-        margin-right: 1%;
-        width: 15%;
-    }
-
-    .linha3 .componente4 .conteudo {
-        font-weight: bold;
-    }
-
-    .linha3 .componente4 .conteudo input::placeholder {
-        font-weight: bold;
-    }
-
-    .linha3 .componente5 {
-        width: 16%;
-    }
-
-    .linha3 .componente5 .conteudo {
-        font-weight: bold;
-        color: red;
-    }
-
-    .linha3 .componente5 .conteudo input::placeholder {
-        font-weight: bold;
-        color: red;
-    }
-
-    .linha3 .topico {
-        font-size: 8px;
-        height: 10%;
-
-    }
-
-    .linha3 .conteudo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 10px;
-        border-radius: 10px;
-        background-color: white;
-        height: 90%;
-    }
-
-    .linha4 {
-        margin-top: 5%;
-    }
-
-    .linha4 button {
-        font-size: 10px;
-        border-radius: 10px;
-        border: 1px solid black;
-        background-color: red;
-        width: 150px;
-        height: 30px;
-        color: white;
-    }
+p {
+  margin-top: 2em;
+}
