@@ -180,3 +180,12 @@ body {
   justify-content: center;
   background-color: rgb(212, 212, 212);
 }
+
+
+.detalhes {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  margin-left: 70%;
+}

@@ -137,7 +137,12 @@ const CriarPedido = () => {
                 onChange={handleValorUnitarioChange}
               />
               <p>O preço será {preco}.</p>
-              <button type="submit">Cadastrar</button>
+              <div className={styles.buttonContainer}>
+                <button type="button">
+                  <Link to="/pedidos">Cancelar</Link>
+                </button>
+                <button type="submit">Cadastrar</button>
+              </div>
             </form>
           </div>
         </div>

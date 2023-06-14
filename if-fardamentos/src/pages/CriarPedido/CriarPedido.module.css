@@ -44,6 +44,14 @@ form {
 }
 
 button {
+  margin: 1rem;
+  cursor: pointer;
+}
+
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
   margin-top: 20px;
 }
 

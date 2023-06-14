@@ -1,15 +1,3 @@
-.conteiner-direito {
-    background-color: #BDC0C2;
-    border-radius: 10px;
-    width: 60%;
-    height: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-}
-
 a button {
     margin: 2%;
     font-size: 12px;

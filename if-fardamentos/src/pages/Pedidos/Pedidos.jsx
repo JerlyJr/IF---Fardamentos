@@ -67,7 +67,7 @@ const Pedidos = () => {
           <div className="conteiner-direito">
             {/** aqui eu criei um if para quando clicar no pedido ele aparecer no lado direito da tela */}
             {pedidoSelecionado && (
-              <>
+              <div class='detalhes'>
                 <div>
                   <b>Cliente:</b> {pedidoSelecionado.cliente}
                 </div>
@@ -93,7 +93,7 @@ const Pedidos = () => {
                   <b>Valor Unitário:</b> {pedidoSelecionado.valorUnitario}
                 </div>
                 <button onClick={handleFecharPedido}>Fechar Pedido</button>
-              </>
+              </div>
             )}
             {!pedidoSelecionado && (
               <>
