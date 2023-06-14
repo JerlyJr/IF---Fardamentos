@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { db } from '../../firebase/config';
-import styles from './Pedidos.module.css';
+import { collection, getDocs } from 'firebase/firestore';
+import './Pedidos.module.css';
 import ImgPedidos from '../../assets/pedido.png';
 
 const Pedidos = () => {
   const [pedidos, setPedidos] = useState([]);
 
   useEffect(() => {
-    // Função para buscar os pedidos no Firestore
     const fetchPedidos = async () => {
       try {
-        const pedidosRef = db.collection('pedidos');
-        const snapshot = await pedidosRef.get();
+        const pedidosRef = collection(db, 'pedidos');
+        const snapshot = await getDocs(pedidosRef);
 
         const pedidosData = snapshot.docs.map(doc => ({
           id: doc.id,
@@ -33,8 +33,22 @@ const Pedidos = () => {
       <div className="background-image"></div>
       <div className="fundo">
         <div className="tela">
-          <div className="conteiner-esquerdo">
+          <div className="conteiner-esquerdo" >
             <input type="text" placeholder="Pesquisar" />
+            <div className={"lista-pedidos"} style={{ overflow: 'auto' }}>
+              {pedidos.map(pedido => (
+                <div key={pedido.id} className={"pedidos"}>
+                  <div className="conteiner-pedido1">
+                    <div className="nome-pedido">Pedido</div>
+                    <div className="numero-pedido">#00</div>
+                  </div>
+                  <div className="conteiner-pedido2">
+                    <div className="nome-cliente"><b>Cliente: </b>{pedido.cliente}</div>
+                    <div className="itens-pedido"><b>Itens: </b>{pedido.item}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
           <div className="conteiner-direito">
             <img src={ImgPedidos} alt="" width="100px" height="100px" />
@@ -44,21 +58,6 @@ const Pedidos = () => {
               </button>
             </Link>
           </div>
-        </div>
-        <div className={styles.listaPedidos}>
-          {pedidos.map(pedido => (
-            <div key={pedido.id} className={styles.pedidoItem}>
-              <div className={styles.numeroPedido}>{`#${pedido.id}`}</div>
-              <div className={styles.detalhesPedido}>
-                <div className={styles.nomeCliente}>{pedido.cliente}</div>
-                <div className={styles.infoPedido}>
-                  <div>{`Item: ${pedido.item}`}</div>
-                  <div>{`Preço: R$ ${pedido.preco}`}</div>
-                  <div>{`Data: ${pedido.data}`}</div>
-                </div>
-              </div>
-            </div>
-          ))}
         </div>
       </div>
     </>
