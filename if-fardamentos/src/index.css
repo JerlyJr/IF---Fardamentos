@@ -116,16 +116,12 @@ body {
   display: flex;
   flex-direction: column;
   font-size: 13px;
+  cursor: pointer;
 }
 
- .pedido-selecionado {
-  background-color: #FE2F2F;
-  border-radius: 10px;
-  margin: 5% 5% 0% 5%;
-  display: flex;
-  flex-direction: column;
-  font-size: 13px;
-  color: white;
+.pedidos.selecionado {
+  background-color: red;
+  cursor: default;
 }
 
 .pedido-selecionado .conteiner-pedido1 {
