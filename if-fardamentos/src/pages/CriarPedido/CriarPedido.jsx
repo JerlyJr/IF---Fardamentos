@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import styles from './CriarPedido.module.css';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 
 const CriarPedido = () => {
@@ -14,6 +14,20 @@ const CriarPedido = () => {
   const [valorUnitario, setValorUnitario] = useState(0);
   const [preco, setPreco] = useState(0);
   const [redirectToPedidos, setRedirectToPedidos] = useState(false);
+  const [pedidosCount, setPedidosCount] = useState(0); // Adicionado estado para controlar o índice
+
+  useEffect(() => {
+    const fetchPedidosCount = async () => {
+      try {
+        const snapshot = await getDocs(collection(db, 'pedidos'));
+        setPedidosCount(snapshot.docs.length);
+      } catch (error) {
+        console.error('Erro ao buscar a contagem de pedidos:', error);
+      }
+    };
+
+    fetchPedidosCount();
+  }, []);
 
   const handleValorUnitarioChange = (e) => {
     const value = parseFloat(e.target.value);
@@ -44,6 +58,7 @@ const CriarPedido = () => {
       quantidade,
       valorUnitario,
       preco,
+      index: pedidosCount + 1, // Adicionar o índice ao pedido
     };
 
     try {
