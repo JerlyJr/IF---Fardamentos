@@ -8,27 +8,37 @@ import ImgPedidos from '../../assets/pedido.png';
 const Pedidos = () => {
   const [pedidos, setPedidos] = useState([]);
   const [pedidoSelecionado, setPedidoSelecionado] = useState(null);
+  const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
     const fetchPedidos = async () => {
       try {
+        //acessando o banco de dados
         const snapshot = await getDocs(collection(db, 'pedidos'));
+        // recebendo os dados do banco de dados
         const pedidosData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setPedidos(pedidosData);
+
+        // filtrando os pedidos com base no valor da pesquisa
+        const filteredPedidos = pedidosData.filter(pedido =>
+          pedido.cliente.toLowerCase().startsWith(searchValue.toLowerCase())
+        );
+        
+        // setando os pedidos filtrados
+        setPedidos(filteredPedidos);
       } catch (error) {
         console.error('Erro ao buscar os pedidos:', error);
       }
     };
 
     fetchPedidos();
-  }, []);
+  }, [searchValue]);
 
-// aqui eu criei uma função para quando clicar no pedido ele aparecer no lado direito da tela
+  // função para selecionar o pedido
   const handlePedidoClick = pedido => {
     setPedidoSelecionado(pedido);
   };
 
-  // aqui eu criei uma função para quando clicar no botão fechar pedido ele fechar o pedido
+  // função para fechar o pedido
   const handleFecharPedido = () => {
     setPedidoSelecionado(null);
   };
@@ -39,15 +49,19 @@ const Pedidos = () => {
       <div className="fundo">
         <div className="tela">
           <div className="conteiner-esquerdo">
-            <input type="text" placeholder="Pesquisar" />
+            <input
+              type="text"
+              placeholder="Pesquisar"
+              value={searchValue}
+              onChange={e => setSearchValue(e.target.value)}
+            />
             <div className="lista-pedidos" style={{ overflow: 'auto' }}>
-              {/* aqui eu  criei um map para listar os pedidos */}
               {pedidos.map(pedido => (
                 <div
                   key={pedido.id}
                   className={`pedidos ${pedido === pedidoSelecionado ? 'selecionado' : ''}`}
                   onClick={() => handlePedidoClick(pedido)}
-                > 
+                >
                   <div className="conteiner-pedido1">
                     <div className="nome-pedido">Pedido</div>
                     <div className="numero-pedido">#00</div>
@@ -65,9 +79,8 @@ const Pedidos = () => {
             </div>
           </div>
           <div className="conteiner-direito">
-            {/** aqui eu criei um if para quando clicar no pedido ele aparecer no lado direito da tela */}
             {pedidoSelecionado && (
-              <div class='detalhes'>
+              <div className="detalhes">
                 <div>
                   <b>Cliente:</b> {pedidoSelecionado.cliente}
                 </div>
