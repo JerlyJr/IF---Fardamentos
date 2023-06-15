@@ -9,3 +9,18 @@ a button {
     color: white;
     cursor: pointer;
 }
+
+.detalhes {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    margin-left: 70%;
+}
+
+.botoes{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+

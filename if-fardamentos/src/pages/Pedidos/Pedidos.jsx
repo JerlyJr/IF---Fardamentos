@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { db } from '../../firebase/config';
-import { collection, getDocs } from 'firebase/firestore';
-import './Pedidos.module.css';
+import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
+import styles from './Pedidos.module.css';
 import ImgPedidos from '../../assets/pedido.png';
 
 const Pedidos = () => {
@@ -10,37 +10,41 @@ const Pedidos = () => {
   const [pedidoSelecionado, setPedidoSelecionado] = useState(null);
   const [searchValue, setSearchValue] = useState('');
 
+  const fetchPedidos = async () => {
+    try {
+      const snapshot = await getDocs(collection(db, 'pedidos'));
+      const pedidosData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      const filteredPedidos = pedidosData.filter(pedido =>
+        pedido.cliente.toLowerCase().startsWith(searchValue.toLowerCase())
+      );
+
+      setPedidos(filteredPedidos);
+    } catch (error) {
+      console.error('Erro ao buscar os pedidos:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchPedidos = async () => {
-      try {
-        //acessando o banco de dados
-        const snapshot = await getDocs(collection(db, 'pedidos'));
-        // recebendo os dados do banco de dados
-        const pedidosData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-        // filtrando os pedidos com base no valor da pesquisa
-        const filteredPedidos = pedidosData.filter(pedido =>
-          pedido.cliente.toLowerCase().startsWith(searchValue.toLowerCase())
-        );
-        
-        // setando os pedidos filtrados
-        setPedidos(filteredPedidos);
-      } catch (error) {
-        console.error('Erro ao buscar os pedidos:', error);
-      }
-    };
-
     fetchPedidos();
   }, [searchValue]);
 
-  // função para selecionar o pedido
   const handlePedidoClick = pedido => {
     setPedidoSelecionado(pedido);
   };
 
-  // função para fechar o pedido
   const handleFecharPedido = () => {
     setPedidoSelecionado(null);
+  };
+
+  const handleDeletePedido = async () => {
+    try {
+      await deleteDoc(doc(db, 'pedidos', pedidoSelecionado.id));
+      setPedidoSelecionado(null);
+      fetchPedidos();
+    } catch (error) {
+      console.error('Erro ao deletar o pedido:', error);
+    }
   };
 
   return (
@@ -56,7 +60,7 @@ const Pedidos = () => {
               onChange={e => setSearchValue(e.target.value)}
             />
             <div className="lista-pedidos" style={{ overflow: 'auto' }}>
-              {pedidos.map(pedido => (
+              {pedidos.map((pedido, index) => (
                 <div
                   key={pedido.id}
                   className={`pedidos ${pedido === pedidoSelecionado ? 'selecionado' : ''}`}
@@ -64,7 +68,7 @@ const Pedidos = () => {
                 >
                   <div className="conteiner-pedido1">
                     <div className="nome-pedido">Pedido</div>
-                    <div className="numero-pedido">#00</div>
+                    <div className="numero-pedido">#{index + 1}</div>
                   </div>
                   <div className="conteiner-pedido2">
                     <div className="nome-cliente">
@@ -80,6 +84,7 @@ const Pedidos = () => {
           </div>
           <div className="conteiner-direito">
             {pedidoSelecionado && (
+              <>
               <div className="detalhes">
                 <div>
                   <b>Cliente:</b> {pedidoSelecionado.cliente}
@@ -105,8 +110,12 @@ const Pedidos = () => {
                 <div>
                   <b>Valor Unitário:</b> {pedidoSelecionado.valorUnitario}
                 </div>
+              </div>
+              <div className={styles.botoes}>
+                <button onClick={handleDeletePedido}>Deletar Pedido</button>
                 <button onClick={handleFecharPedido}>Fechar Pedido</button>
               </div>
+              </>
             )}
             {!pedidoSelecionado && (
               <>
