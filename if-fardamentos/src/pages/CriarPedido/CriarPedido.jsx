@@ -14,13 +14,20 @@ const CriarPedido = () => {
   const [valorUnitario, setValorUnitario] = useState(0);
   const [preco, setPreco] = useState(0);
   const [redirectToPedidos, setRedirectToPedidos] = useState(false);
-  const [pedidosCount, setPedidosCount] = useState(0); // Adicionado estado para controlar o índice
+  const [pedidosCount, setPedidosCount] = useState(0);
 
   useEffect(() => {
     const fetchPedidosCount = async () => {
       try {
         const snapshot = await getDocs(collection(db, 'pedidos'));
-        setPedidosCount(snapshot.docs.length);
+        const pedidos = snapshot.docs.map((doc) => doc.data());
+
+        if (pedidos.length > 0) {
+          const maxIndex = Math.max(...pedidos.map((pedido) => pedido.index));
+          setPedidosCount(maxIndex + 1);
+        } else {
+          setPedidosCount(1);
+        }
       } catch (error) {
         console.error('Erro ao buscar a contagem de pedidos:', error);
       }
@@ -48,7 +55,6 @@ const CriarPedido = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Criar um objeto com os dados do pedido
     const pedido = {
       cliente,
       telefone,
@@ -58,15 +64,15 @@ const CriarPedido = () => {
       quantidade,
       valorUnitario,
       preco,
-      index: pedidosCount + 1, // Adicionar o índice ao pedido
+      index: pedidosCount,
     };
 
     try {
-      // Enviar o pedido para o Firebase
       const docRef = await addDoc(collection(db, 'pedidos'), pedido);
       console.log('Pedido cadastrado com ID: ', docRef.id);
 
-      // Ativar o redirecionamento para a página de pedidos
+      setPedidosCount((prevCount) => prevCount + 1);
+
       setRedirectToPedidos(true);
     } catch (error) {
       console.error('Erro ao cadastrar o pedido: ', error);
@@ -151,7 +157,7 @@ const CriarPedido = () => {
                 value={valorUnitario}
                 onChange={handleValorUnitarioChange}
               />
-              <p>O preço será {preco}.</p>
+              <p>O preço será: R$ {preco.toFixed(2)}</p>
               <div className={styles.buttonContainer}>
                 <button type="button">
                   <Link to="/pedidos">Cancelar</Link>

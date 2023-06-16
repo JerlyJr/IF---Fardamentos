@@ -7,13 +7,12 @@
 
 .conteiner_direito {
   margin-top: 30vh;
-  background-color: #bdc0c2;
+  background-color: #BDC0C2;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  background-color: rgb(212, 212, 212);
   width: 100%;
   max-width: 500px;
   padding: 20px;
