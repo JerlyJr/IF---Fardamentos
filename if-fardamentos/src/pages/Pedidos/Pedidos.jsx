@@ -40,10 +40,20 @@ const Pedidos = () => {
   }, [searchValue]);
 
   const handlePedidoClick = (pedido) => {
-    // Define o pedido selecionado quando um pedido é clicado
     setPedidoSelecionado(pedido);
     setEditMode(false); // Desativa o modo de edição
-    setEditFields({ ...pedido }); // Pré-definir os campos de edição com os dados do pedido selecionado
+  
+    // Preenche os campos de edição com os valores do pedido selecionado
+    setEditFields({
+      cliente: pedido.cliente,
+      data: pedido.data,
+      descricao: pedido.descricao,
+      item: pedido.item,
+      preco: pedido.preco,
+      quantidade: pedido.quantidade,
+      telefone: pedido.telefone,
+      valorUnitario: pedido.valorUnitario,
+    });
   };
 
   const handleFecharPedido = () => {
@@ -65,10 +75,11 @@ const Pedidos = () => {
   };
 
   const handleEditFieldsChange = (e) => {
-    // Atualiza os campos de edição com os novos valores
+    const { name, value } = e.target;
+  
     setEditFields((prevFields) => ({
       ...prevFields,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
