@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { db } from '../../firebase/config';
 import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
-import styles from './Pedidos.module.css';
-import ImgPedidos from '../../assets/pedido.png';
+import camisas from '../../assets/camisas.png';
+import addPedido from '../../assets/addPedido.png';
 
 const Pedidos = () => {
   // Variáveis de estado
@@ -70,6 +70,9 @@ const Pedidos = () => {
               value={searchValue}
               onChange={e => setSearchValue(e.target.value)}
             />
+            <Link to="/criar-pedido">
+              <div className="addPedido"><img src={addPedido} alt="" width="100px" height="100px" /></div>
+            </Link>
             <div className="lista-pedidos" style={{ overflow: 'auto' }}>
               {pedidos.map((pedido, index) => (
                 <div
@@ -122,7 +125,7 @@ const Pedidos = () => {
                     <b>Valor Unitário:</b> {pedidoSelecionado.valorUnitario}
                   </div>
                 </div>
-                <div className={styles.botoes}>
+                <div className="botoes">
                   <button onClick={handleDeletePedido}>Deletar Pedido</button>
                   <button onClick={handleFecharPedido}>Fechar Pedido</button>
                 </div>
@@ -130,12 +133,8 @@ const Pedidos = () => {
             )}
             {!pedidoSelecionado && (
               <>
-                <img src={ImgPedidos} alt="" width="100px" height="100px" />
-                <Link to="/criar-pedido">
-                  <button name="Adicionar_pedido" id="Adicionar_pedido">
-                    Adicionar novo pedido
-                  </button>
-                </Link>
+                <img src={camisas} alt="" width="50%" height="50%" />
+                <b>Bem vindo(a) ao sistema de de gerenciamento de pedidos!</b>
               </>
             )}
           </div>

@@ -21,7 +21,6 @@ const Navbar = () => {
       )}
       {auth.currentUser && (
         <>
-          <Link to="/pedidos" className="link">Pedidos</Link>
           <Link to="/" onClick={handleLogout} className="link">Sair</Link>
         </>
       )}
