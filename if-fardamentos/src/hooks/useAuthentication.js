@@ -1,19 +1,8 @@
-import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut } from 'firebase/auth';
 import { useState, useEffect } from 'react';
-import { db } from '../firebase/config';
+import { app } from '../firebase/config';
 
-// Configurar o Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyBaVaR8z-RiYokLkJ8iq8VtRYbb19LV7OA",
-  authDomain: "if-fardamentos.firebaseapp.com",
-  projectId: "if-fardamentos",
-  storageBucket: "if-fardamentos.appspot.com",
-  messagingSenderId: "971797136474",
-  appId: "1:971797136474:web:afb94ab1e409cfb9a50463"
-};
-
-const app = initializeApp(firebaseConfig);
+// usar o "app" de FirebaseConfig para garantir segredo das credenciais
 const auth = getAuth(app);
 
 export const useAuthentication = () => {
