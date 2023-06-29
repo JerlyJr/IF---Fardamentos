@@ -14,6 +14,7 @@ const Pedidos = () => {
   const [searchValue, setSearchValue] = useState(''); // Armazena o valor de busca
   const [editMode, setEditMode] = useState(false); // Armazena o estado de edição
   const [editFields, setEditFields] = useState({}); // Armazena os campos de edição
+  const [corDoEstado, setCorDoEstado] = useState('#000000')
 
   // Busca os pedidos no banco de dados
   const fetchPedidos = async () => {
@@ -55,7 +56,20 @@ const Pedidos = () => {
       quantidade: pedido.quantidade,
       telefone: pedido.telefone,
       valorUnitario: pedido.valorUnitario,
+      estado: pedido.estado
     });
+    
+    if (pedido.estado === "Concluído") {
+      setCorDoEstado('#116220')
+    }
+
+    else if (pedido.estado === "Em aberto") {
+      setCorDoEstado('#8B8000')
+    }
+
+    else {
+      setCorDoEstado('#8B0000')
+    }
   };
 
   const handleFecharPedido = () => {
@@ -63,6 +77,7 @@ const Pedidos = () => {
     setPedidoSelecionado(null);
     setEditMode(false); // Desativa o modo de edição
     setEditFields({}); // Limpa os campos de edição
+    setCorDoEstado('#000000')
   };
 
   const handleDeletePedido = async () => {
@@ -152,7 +167,7 @@ const Pedidos = () => {
 
                         <div className="linha">
                           <div className='detalhe-status'><b>Status: </b></div>
-                          <div className='detalhe-barra-status'>--Para implementar--</div>
+                          <div className='detalhe-barra-status' style={{color: corDoEstado}}>{pedidoSelecionado.estado}</div>
                         </div>
 
                         <div className="linha">
@@ -202,13 +217,28 @@ const Pedidos = () => {
                       </div>
                     </div>
                     <div className="bloco-deletar">
-                      <div className='botao-deletar' onClick={handleDeletePedido} ><img src={excluirPedido} width={10} height={13}/>Deletar Pedido</div>
+                      <div className='botao-deletar' onClick={handleDeletePedido} ><img src={excluirPedido} width={10} height={13} alt="Apagar pedido"/>Deletar Pedido</div>
                     </div>
                   </>
                 ) : (
                   <>
                     <table className="edit-table">
                       <tbody>
+                      <tr style={{width: '100%'}}>
+                          <td>
+                            <label htmlFor="estado">Estado:</label>
+                          </td>
+                          <td style={{display: 'flex', flexDirection: 'row'}}>
+                            <input type="radio" id="cancelado" name="estado" value="Cancelado"  onChange={handleEditFieldsChange} />
+                            <label htmlFor="cancelado" style={{marginRight: '2em'}}>Cancelado</label>
+
+                            <input type="radio" id="em-aberto" name="estado" value="Em aberto"  onChange={handleEditFieldsChange} />
+                            <label htmlFor="em-aberto" style={{marginRight: '2em'}}>Em aberto</label>
+
+                            <input type="radio" id="concluido" name="estado" value="Concluído"  onChange={handleEditFieldsChange} />
+                            <label htmlFor="concluido">Concluído</label>
+                          </td>
+                        </tr>
                         <tr>
                           <td>
                             <label htmlFor="cliente">Cliente:</label>
