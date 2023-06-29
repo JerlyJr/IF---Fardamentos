@@ -9,7 +9,6 @@ import Navbar from './components/Navbar';
 // Pages
 import Login from './pages/Login/Login';
 import Pedidos from './pages/Pedidos/Pedidos';
-import Pedido from './pages/Pedido/Pedido';
 import NotFound from './pages/NotFound/NotFound';
 import Cadastro from './pages/Cadastro/Cadastro';
 import CriarPedido from './pages/CriarPedido/CriarPedido'
@@ -47,7 +46,6 @@ function App() {
               <Route path="/cadastro" element={!user ? <Cadastro /> : <Navigate to = "/pedidos"/>} />
               <Route path="/pedidos" element={user ? <Pedidos /> : <Navigate to = "/"/>} />
               <Route path="/criar-pedido" element={<CriarPedido />}></Route>
-              <Route path="/pedido" element={<Pedido />}></Route>
               <Route path="*" element={<NotFound />}></Route>
               <Route></Route>    
             </Routes>

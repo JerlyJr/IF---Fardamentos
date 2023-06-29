@@ -4,6 +4,7 @@ import { db } from '../../firebase/config';
 import { collection, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import camisas from '../../assets/camisas.png';
 import addPedido from '../../assets/addPedido.png';
+import fecharPedido from '../../assets/fecharPedido.png';
 
 const Pedidos = () => {
   // Variáveis de estado
@@ -42,7 +43,7 @@ const Pedidos = () => {
   const handlePedidoClick = (pedido) => {
     setPedidoSelecionado(pedido);
     setEditMode(false); // Desativa o modo de edição
-  
+
     // Preenche os campos de edição com os valores do pedido selecionado
     setEditFields({
       cliente: pedido.cliente,
@@ -76,7 +77,7 @@ const Pedidos = () => {
 
   const handleEditFieldsChange = (e) => {
     const { name, value } = e.target;
-  
+
     setEditFields((prevFields) => ({
       ...prevFields,
       [name]: value,
@@ -138,39 +139,67 @@ const Pedidos = () => {
             {pedidoSelecionado ? (
               <>
                 {!editMode ? (
-                  <>
+                  <div className='conteiner-detalhes'>
+                    <div className="botao-fechar"><img src={fecharPedido} alt="" width={20} height={20} onClick={handleFecharPedido} /></div>
                     <div className="detalhes">
-                      <div>
-                        <b>Cliente:</b> {pedidoSelecionado.cliente}
+
+                      <div className='linha'>
+                        <div className='detalhe-pedido'><b>Pedido: </b></div>
+                        <div className='detalhe-index'><b>#{pedidoSelecionado.index}</b></div>
                       </div>
-                      <div>
-                        <b>Data:</b> {pedidoSelecionado.data}
+
+                      <div className="linha">
+                        <div className='detalhe-status'><b>Status: </b></div>
+                        <div className='detalhe-barra-status'>--Para implementar--</div>
                       </div>
-                      <div>
-                        <b>Descrição:</b> {pedidoSelecionado.descricao}
+
+                      <div className="linha">
+                        <div className='detalhe-cliente'>
+                          <b>Cliente:</b> {pedidoSelecionado.cliente}
+                        </div>
+                        <div className='detalhe-data'>
+                          <b>Data:</b> {pedidoSelecionado.data}
+                        </div>
                       </div>
-                      <div>
-                        <b>Item:</b> {pedidoSelecionado.item}
+                      <div className="linha">
+                        <div><b>Telefone:</b> {pedidoSelecionado.telefone}</div>
                       </div>
-                      <div>
-                        <b>Preço:</b> {pedidoSelecionado.preco}
-                      </div>
-                      <div>
-                        <b>Quantidade:</b> {pedidoSelecionado.quantidade}
-                      </div>
-                      <div>
-                        <b>Telefone:</b> {pedidoSelecionado.telefone}
-                      </div>
-                      <div>
-                        <b>Valor Unitário:</b> {pedidoSelecionado.valorUnitario}
+
+                      <div className="bloco-pedido">
+
+                        <div className="linha-item">
+                          <div className='detalhe-titulo'>Item: </div>
+                          <div className='detalhe-conteudo'>{pedidoSelecionado.item}</div>
+                        </div>
+
+                        <div className="linha-descricao">
+                          <div className='detalhe-titulo'>Descrição: </div>
+                          <div className='detalhe-conteudo-descricao'>{pedidoSelecionado.descricao}</div>
+                        </div>
+
+                        <div className="linha-quantidade">
+                          <div className='detalhe-titulo'>Quantidade: </div>
+                          <div className='detalhe-conteudo'>{pedidoSelecionado.quantidade}</div>
+                        </div>
+
+                        <div className="linha-valor">
+                          <div className='detalhe-titulo'>Valor Unitário: </div>
+                          <div className='detalhe-conteudo'>R$ {(pedidoSelecionado.valorUnitario).toFixed(2)}</div>
+                        </div>
+
+                        <div className="linha-preco">
+                          <div className='detalhe-titulo'>Preço: </div>
+                          <div className='detalhe-conteudo' style={{color:'red'}}>R$ {(pedidoSelecionado.preco).toFixed(2)}</div>
+                        </div>
+
                       </div>
                     </div>
+
                     <div className="botoes">
                       <button onClick={handleDeletePedido}>Deletar Pedido</button>
-                      <button onClick={handleFecharPedido}>Fechar Pedido</button>
-                      <button onClick={() => setEditMode(true)}>Editar Pedido</button>
+                      <button onClick={() => setEditMode(true)}>Editar pedido</button>
                     </div>
-                  </>
+                  </div>
                 ) : (
                   <>
                     <table className="edit-table">

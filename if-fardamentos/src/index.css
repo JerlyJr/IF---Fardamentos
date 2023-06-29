@@ -179,9 +179,8 @@ a button {
 .detalhes {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   width: 100%;
-  margin-left: 70%;
 }
 
 .botoes{
@@ -206,4 +205,87 @@ a button {
   height: 100%;
   overflow: auto;
   width: 100%;
+}
+
+.botao-fechar {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-bottom: 2%;
+}
+
+.botao-fechar img{
+  margin-top: 2%;
+  cursor: pointer;
+}
+
+.conteiner-detalhes{
+  width: 96%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.detalhes .linha{
+  width: 100%;
+  margin-top: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.bloco-pedido{
+  margin-top: 10px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.detalhe-conteudo-descricao{
+  background-color: #EBEBEB;
+  border-radius: 5px;
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 10px;
+}
+
+.detalhe-titulo{
+  display: flex;
+  justify-content: flex-start;
+  font-size: 8px;
+}
+
+.detalhe-conteudo{
+  background-color: #EBEBEB;
+  border-radius: 5px;
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: bolder;
+  font-size: 14px;
+}
+
+.linha-item{
+width: 14%;
+}
+
+.linha-descricao{
+  width: 42%;
+}
+
+.linha-quantidade{
+  width: 14%;
+}
+
+.linha-valor{
+  width: 14%;
+}
+
+.linha-preco{
+  width: 14%;
 }
