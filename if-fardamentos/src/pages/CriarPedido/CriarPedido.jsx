@@ -65,6 +65,7 @@ const CriarPedido = () => {
       valorUnitario,
       preco,
       index: pedidosCount,
+      estado: "Em aberto"
     };
 
     try {
