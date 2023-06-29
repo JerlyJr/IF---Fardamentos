@@ -55,7 +55,7 @@ const Pedidos = () => {
       preco: pedido.preco,
       quantidade: pedido.quantidade,
       telefone: pedido.telefone,
-      valorUnitario: pedido.valorUnitario,
+      valorUnitario: Number(pedido.valorUnitario),
       estado: pedido.estado
     });
     
@@ -102,6 +102,8 @@ const Pedidos = () => {
 
   const handleEditPedido = async () => {
     try {
+      editFields.preco = editFields.valorUnitario * editFields.quantidade
+      
       // Atualiza o pedido selecionado no banco de dados
       await updateDoc(doc(db, 'pedidos', pedidoSelecionado.id), editFields);
       setEditMode(false); // Desativa o modo de edição
@@ -258,7 +260,7 @@ const Pedidos = () => {
                           </td>
                           <td>
                             <input
-                              type="text"
+                              type="date"
                               name="data"
                               value={editFields.data || ''}
                               onChange={handleEditFieldsChange}
@@ -297,10 +299,11 @@ const Pedidos = () => {
                           </td>
                           <td>
                             <input
-                              type="text"
+                              type="number"
                               name="preco"
                               value={editFields.preco || ''}
                               onChange={handleEditFieldsChange}
+                              disabled
                             />
                           </td>
                         </tr>
@@ -310,7 +313,7 @@ const Pedidos = () => {
                           </td>
                           <td>
                             <input
-                              type="text"
+                              type="number"
                               name="quantidade"
                               value={editFields.quantidade || ''}
                               onChange={handleEditFieldsChange}
@@ -336,7 +339,7 @@ const Pedidos = () => {
                           </td>
                           <td>
                             <input
-                              type="text"
+                              type="number"
                               name="valorUnitario"
                               value={editFields.valorUnitario || ''}
                               onChange={handleEditFieldsChange}
