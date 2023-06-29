@@ -2,6 +2,7 @@ import styles from './Login.module.css';
 import ImgLogo from '../../assets/logo.png';
 import { useState } from 'react';
 import { useAuthentication } from '../../hooks/useAuthentication';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [nomeUsuario, setNomeUsuario] = useState('');
@@ -69,6 +70,7 @@ const Login = () => {
             </div>
             {erro && <p className="error">{erro}</p>}
           </form>
+          <p>Ainda não tem uma conta? <Link to="/cadastro">Cadastre-se</Link>.</p>
         </div>
       </div>
     </>

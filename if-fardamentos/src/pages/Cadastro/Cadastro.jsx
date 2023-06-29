@@ -4,6 +4,7 @@ import ImgLogo from '../../assets/logo.png';
 // Hooks
 import { useState, useEffect } from 'react';
 import { useAuthentication } from '../../hooks/useAuthentication';
+import { Link } from 'react-router-dom';
 
 const Cadastro = () => {
   const [nomeUsuario, setNomeUsuario] = useState('');
@@ -104,6 +105,7 @@ const Cadastro = () => {
                 />
               )}
               {erro && <p className="error">{erro}</p>}
+              <p>Já tem uma conta? <Link to="/">Entrar</Link>.</p>
             </div>
           </form>
         </div>
