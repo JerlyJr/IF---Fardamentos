@@ -123,7 +123,7 @@ const CriarPedido = () => {
                 </tr>
                 <tr>
                   <td>
-                    <span>Data de entrega:</span>
+                    <span>Data:</span>
                   </td>
                   <td>
                     <input

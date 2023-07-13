@@ -17,28 +17,36 @@ const Pedidos = () => {
   const [editFields, setEditFields] = useState({}); // Armazena os campos de edição
   const [corDoEstado, setCorDoEstado] = useState('#000000');
 
-  // Busca os pedidos no banco de dados
-  const fetchPedidos = async () => {
-    try {
-      // Obtém todos os documentos da coleção 'pedidos'
-      const snapshot = await getDocs(collection(db, 'pedidos'));
-      const pedidosData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+// Busca os pedidos no banco de dados
+const fetchPedidos = async () => {
+  try {
+    // Obtém todos os documentos da coleção 'pedidos'
+    const snapshot = await getDocs(collection(db, 'pedidos'));
+    const pedidosData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
-      // Filtra os pedidos com base no valor de busca
-      const filteredPedidos = pedidosData.filter(
-        (pedido) =>
-          pedido.cliente.toLowerCase().startsWith(searchValue.toLowerCase()) ||
-          pedido.item.toLowerCase().startsWith(searchValue.toLowerCase())
+    // Filtra os pedidos com base no valor de busca e estado
+    const filteredPedidos = pedidosData.filter((pedido) => {
+      const clienteLowerCase = pedido.cliente.toLowerCase();
+      const itemLowerCase = pedido.item.toLowerCase();
+      const estadoLowerCase = pedido.estado.toLowerCase();
+      const searchValueLowerCase = searchValue.toLowerCase();
+
+      return (
+        clienteLowerCase.startsWith(searchValueLowerCase) ||
+        itemLowerCase.startsWith(searchValueLowerCase) ||
+        estadoLowerCase.startsWith(searchValueLowerCase)
       );
+    });
 
-      // Ordena os pedidos pelo índice
-      const sortedPedidos = filteredPedidos.sort((a, b) => a.index - b.index);
+    // Ordena os pedidos pelo índice
+    const sortedPedidos = filteredPedidos.sort((a, b) => a.index - b.index);
 
-      setPedidos(sortedPedidos);
-    } catch (error) {
-      console.error('Erro ao buscar os pedidos:', error);
-    }
-  };
+    setPedidos(sortedPedidos);
+  } catch (error) {
+    console.error('Erro ao buscar os pedidos:', error);
+  }
+};
+
 
   useEffect(() => {
     // Busca os pedidos quando o componente é montado ou quando o valor de busca é alterado
