@@ -8,6 +8,7 @@ import fecharPedido from '../../assets/fecharPedido.png';
 import excluirPedido from '../../assets/excluirPedido.png';
 import logoHorizontal from '../../assets/logo_horizontal.png'
 import editarPedido from '../../assets/editar.png'
+import busca from '../../assets/busca.png'
 
 const Pedidos = () => {
   // Variáveis de estado
@@ -158,7 +159,7 @@ const Pedidos = () => {
             <div className="conteiner-esquerdo">
               <input
                 type="text"
-                placeholder="Pesquisar"
+                placeholder="🔎 Pesquisar"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
               />
