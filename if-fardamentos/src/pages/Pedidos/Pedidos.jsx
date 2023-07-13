@@ -99,6 +99,15 @@ const fetchPedidos = async () => {
     }
   };
 
+  const calculatePrice = () => {
+    const { quantidade, valorUnitario } = editFields;
+    const preco = quantidade * valorUnitario;
+    setEditFields((prevFields) => ({
+      ...prevFields,
+      preco
+    }));
+  };
+  
   const handleEditFieldsChange = (e) => {
     const { name, value } = e.target;
   
@@ -107,7 +116,10 @@ const fetchPedidos = async () => {
       [name]: value
     }));
   
-    // Atualize a cor de fundo com base no novo estado selecionado
+    if (name === 'quantidade' || name === 'valorUnitario') {
+      calculatePrice();
+    }
+  
     if (name === 'estado') {
       if (value === 'Concluído') {
         setCorDoEstado('#09D943');
@@ -313,6 +325,19 @@ const fetchPedidos = async () => {
                           </tr>
                           <tr>
                             <td>
+                              <label htmlFor="telefone">Telefone:</label>
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                name="telefone"
+                                value={editFields.telefone || ''}
+                                onChange={handleEditFieldsChange}
+                              />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
                               <label htmlFor="data">Data:</label>
                             </td>
                             <td>
@@ -352,20 +377,6 @@ const fetchPedidos = async () => {
                           </tr>
                           <tr>
                             <td>
-                              <label htmlFor="preco">Preço:</label>
-                            </td>
-                            <td>
-                              <input
-                                type="number"
-                                name="preco"
-                                value={editFields.preco || ''}
-                                onChange={handleEditFieldsChange}
-                                disabled
-                              />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
                               <label htmlFor="quantidade">Quantidade:</label>
                             </td>
                             <td>
@@ -373,19 +384,6 @@ const fetchPedidos = async () => {
                                 type="number"
                                 name="quantidade"
                                 value={editFields.quantidade || ''}
-                                onChange={handleEditFieldsChange}
-                              />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <label htmlFor="telefone">Telefone:</label>
-                            </td>
-                            <td>
-                              <input
-                                type="text"
-                                name="telefone"
-                                value={editFields.telefone || ''}
                                 onChange={handleEditFieldsChange}
                               />
                             </td>
@@ -400,6 +398,21 @@ const fetchPedidos = async () => {
                                 name="valorUnitario"
                                 value={editFields.valorUnitario || ''}
                                 onChange={handleEditFieldsChange}
+                              />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <label htmlFor="preco">Preço:</label>
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                name="preco"
+                                value={editFields.preco || ''}
+                                onChange={handleEditFieldsChange}
+                                disabled
+                                className='preco'
                               />
                             </td>
                           </tr>

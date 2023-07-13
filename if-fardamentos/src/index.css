@@ -361,3 +361,8 @@ select {
   font-size: 14px;
   outline: 'none'
 }
+
+.preco{
+  color: red;
+  font-weight: bold;
+}
