@@ -91,73 +91,114 @@ const CriarPedido = () => {
         <div className={styles.tela}>
           <div className={styles.conteiner_direito}>
             <form onSubmit={handleSubmit}>
-              <span>Cliente:</span>
-              <input
-                type="text"
-                name="cliente"
-                id="cliente"
-                placeholder="Cliente"
-                value={cliente}
-                onChange={(e) => setCliente(e.target.value)}
-              />
-              <span>Telefone:</span>
-              <input
-                type="text"
-                name="telefone"
-                id="telefone"
-                placeholder="Telefone"
-                value={telefone}
-                onChange={(e) => setTelefone(e.target.value)}
-              />
+              <table className={styles.table}>
+                <tr>
+                  <td><span>Cliente:</span></td>
+                  <td>
+                    <input
+                      className=""
+                      type="text"
+                      name="cliente"
+                      id="cliente"
+                      placeholder="Cliente"
+                      value={cliente}
+                      onChange={(e) => setCliente(e.target.value)}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Telefone:</span>
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="telefone"
+                      id="telefone"
+                      placeholder="Telefone"
+                      value={telefone}
+                      onChange={(e) => setTelefone(e.target.value)}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Data de entrega:</span>
+                  </td>
+                  <td>
+                    <input
+                      type="date"
+                      name="date"
+                      id="date"
+                      placeholder="Data"
+                      value={data}
+                      onChange={(e) => setData(e.target.value)}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Item:</span>
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="item"
+                      id="item"
+                      placeholder="Item"
+                      value={item}
+                      onChange={(e) => setItem(e.target.value)}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Descrição:</span>
+                  </td>
+                  <td>
+                    <input
+                      type="textbox"
+                      name="descricao"
+                      id="descricao"
+                      placeholder="Descrição"
+                      value={descricao}
+                      onChange={(e) => setDescricao(e.target.value)}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Quantidade:</span>
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      name="numero"
+                      id="numero"
+                      placeholder="Quantidade"
+                      value={quantidade}
+                      onChange={handleQuantidadeChange}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>Valor unitário:</span>
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      name="valorUnitario"
+                      id="valorUnitario"
+                      placeholder="Valor unitário"
+                      value={valorUnitario}
+                      onChange={handleValorUnitarioChange}
+                    />
+                  </td>
+                </tr>
+              </table>
 
-              <span>Data de entrega:</span>
-              <input
-                type="date"
-                name="date"
-                id="date"
-                placeholder="Data"
-                value={data}
-                onChange={(e) => setData(e.target.value)}
-              />
-              <span>Item:</span>
-              <input
-                type="text"
-                name="item"
-                id="item"
-                placeholder="Item"
-                value={item}
-                onChange={(e) => setItem(e.target.value)}
-              />
 
-              <span>Descrição:</span>
-              <input
-                type="textbox"
-                name="descricao"
-                id="descricao"
-                placeholder="Descrição"
-                value={descricao}
-                onChange={(e) => setDescricao(e.target.value)}
-              />
-
-              <span>Quantidade:</span>
-              <input
-                type="number"
-                name="numero"
-                id="numero"
-                placeholder="Quantidade"
-                value={quantidade}
-                onChange={handleQuantidadeChange}
-              />
-
-              <span>Valor unitário:</span>
-              <input
-                type="number"
-                name="valorUnitario"
-                id="valorUnitario"
-                placeholder="Valor unitário"
-                value={valorUnitario}
-                onChange={handleValorUnitarioChange}
-              />
               <p>O preço será: R$ {preco.toFixed(2)}</p>
               <div className={styles.buttonContainer}>
                 <button type="button">
