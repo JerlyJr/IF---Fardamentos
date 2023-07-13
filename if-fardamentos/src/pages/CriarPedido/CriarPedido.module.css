@@ -63,3 +63,12 @@ p {
 .table{
   width: 70%;
 }
+
+.botao_fechar3{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  cursor: pointer;
+  margin: 3% 3% 0% 0%;
+}

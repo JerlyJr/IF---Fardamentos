@@ -3,6 +3,7 @@ import { Link, Navigate } from 'react-router-dom';
 import styles from './CriarPedido.module.css';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase/config';
+import fecharPedido from '../../assets/fecharPedido.png'
 
 const CriarPedido = () => {
   const [cliente, setCliente] = useState('');
@@ -90,6 +91,9 @@ const CriarPedido = () => {
       <div className="fundo">
         <div className={styles.tela}>
           <div className={styles.conteiner_direito}>
+            <div className={styles.botao_fechar3}>
+              <Link to="/pedidos"><img src={fecharPedido} width="20px" height="20px" /></Link>
+            </div>
             <form onSubmit={handleSubmit}>
               <table className={styles.table}>
                 <tr>
@@ -197,14 +201,9 @@ const CriarPedido = () => {
                   </td>
                 </tr>
               </table>
-
-
-              <p>O preço será: R$ {preco.toFixed(2)}</p>
+              <p>O preço será: <b>R$ {preco.toFixed(2)}</b></p>
               <div className={styles.buttonContainer}>
-                <button type="button">
-                  <Link to="/pedidos">Cancelar</Link>
-                </button>
-                <button type="submit">Cadastrar</button>
+                <button type="submit" className='botao_salvar'>Cadastrar</button>
               </div>
             </form>
           </div>

@@ -400,12 +400,6 @@ select {
   color: white;
 }
 
-.botao_cancelar{
-  border-radius: 10px;
-  padding: 1.5%;
-  display: flex;
-  align-items: center;
-  background-color: red;
-  border: none;
-  color: white;
+form b{
+  color: red;
 }
