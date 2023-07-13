@@ -242,6 +242,17 @@ a button {
   padding-bottom: 2%;
 }
 
+.botao-fechar2 {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 4%;
+  cursor: pointer;
+  margin-bottom: 3%;
+}
+
 .botao-fechar img{
   margin-top: 2%;
   cursor: pointer;
@@ -365,4 +376,36 @@ select {
 .preco{
   color: red;
   font-weight: bold;
+}
+
+.botao-editar{
+  border-radius: 10px;
+  padding: 1.5%;
+  display: flex;
+  align-items: center;
+  border: none;
+}
+
+.botao-editar img{
+  margin-right: 5px;
+}
+
+.botao_salvar{
+  border-radius: 10px;
+  padding: 1.5%;
+  display: flex;
+  align-items: center;
+  background-color: forestgreen;
+  border: none;
+  color: white;
+}
+
+.botao_cancelar{
+  border-radius: 10px;
+  padding: 1.5%;
+  display: flex;
+  align-items: center;
+  background-color: red;
+  border: none;
+  color: white;
 }

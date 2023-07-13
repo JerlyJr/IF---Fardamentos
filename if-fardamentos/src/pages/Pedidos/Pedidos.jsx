@@ -7,6 +7,7 @@ import addPedido from '../../assets/addPedido.png';
 import fecharPedido from '../../assets/fecharPedido.png';
 import excluirPedido from '../../assets/excluirPedido.png';
 import logoHorizontal from '../../assets/logo_horizontal.png'
+import editarPedido from '../../assets/editar.png'
 
 const Pedidos = () => {
   // Variáveis de estado
@@ -17,35 +18,35 @@ const Pedidos = () => {
   const [editFields, setEditFields] = useState({}); // Armazena os campos de edição
   const [corDoEstado, setCorDoEstado] = useState('#000000');
 
-// Busca os pedidos no banco de dados
-const fetchPedidos = async () => {
-  try {
-    // Obtém todos os documentos da coleção 'pedidos'
-    const snapshot = await getDocs(collection(db, 'pedidos'));
-    const pedidosData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  // Busca os pedidos no banco de dados
+  const fetchPedidos = async () => {
+    try {
+      // Obtém todos os documentos da coleção 'pedidos'
+      const snapshot = await getDocs(collection(db, 'pedidos'));
+      const pedidosData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
-    // Filtra os pedidos com base no valor de busca e estado
-    const filteredPedidos = pedidosData.filter((pedido) => {
-      const clienteLowerCase = pedido.cliente.toLowerCase();
-      const itemLowerCase = pedido.item.toLowerCase();
-      const estadoLowerCase = pedido.estado.toLowerCase();
-      const searchValueLowerCase = searchValue.toLowerCase();
+      // Filtra os pedidos com base no valor de busca e estado
+      const filteredPedidos = pedidosData.filter((pedido) => {
+        const clienteLowerCase = pedido.cliente.toLowerCase();
+        const itemLowerCase = pedido.item.toLowerCase();
+        const estadoLowerCase = pedido.estado.toLowerCase();
+        const searchValueLowerCase = searchValue.toLowerCase();
 
-      return (
-        clienteLowerCase.startsWith(searchValueLowerCase) ||
-        itemLowerCase.startsWith(searchValueLowerCase) ||
-        estadoLowerCase.startsWith(searchValueLowerCase)
-      );
-    });
+        return (
+          clienteLowerCase.startsWith(searchValueLowerCase) ||
+          itemLowerCase.startsWith(searchValueLowerCase) ||
+          estadoLowerCase.startsWith(searchValueLowerCase)
+        );
+      });
 
-    // Ordena os pedidos pelo índice
-    const sortedPedidos = filteredPedidos.sort((a, b) => a.index - b.index);
+      // Ordena os pedidos pelo índice
+      const sortedPedidos = filteredPedidos.sort((a, b) => a.index - b.index);
 
-    setPedidos(sortedPedidos);
-  } catch (error) {
-    console.error('Erro ao buscar os pedidos:', error);
-  }
-};
+      setPedidos(sortedPedidos);
+    } catch (error) {
+      console.error('Erro ao buscar os pedidos:', error);
+    }
+  };
 
 
   useEffect(() => {
@@ -107,19 +108,19 @@ const fetchPedidos = async () => {
       preco
     }));
   };
-  
+
   const handleEditFieldsChange = (e) => {
     const { name, value } = e.target;
-  
+
     setEditFields((prevFields) => ({
       ...prevFields,
       [name]: value
     }));
-  
+
     if (name === 'quantidade' || name === 'valorUnitario') {
       calculatePrice();
     }
-  
+
     if (name === 'estado') {
       if (value === 'Concluído') {
         setCorDoEstado('#09D943');
@@ -278,6 +279,7 @@ const fetchPedidos = async () => {
                             onClick={() => setEditMode(true)}
                             className="botao-editar"
                           >
+                            <img src={editarPedido} height="12.5px" width="12.5px" />
                             Editar pedido
                           </button>
                         </div>
@@ -291,6 +293,15 @@ const fetchPedidos = async () => {
                     </>
                   ) : (
                     <>
+                      <div className="botao-fechar2">
+                        <img
+                          src={fecharPedido}
+                          alt=""
+                          width={20}
+                          height={20}
+                          onClick={() => setEditMode(false)}
+                        />
+                      </div>
                       <table className="edit-table">
                         <tbody>
                           <tr style={{ width: '100%' }}>
@@ -419,8 +430,7 @@ const fetchPedidos = async () => {
                         </tbody>
                       </table>
                       <div className="botoes">
-                        <button onClick={handleEditPedido}>Salvar Edições</button>
-                        <button onClick={() => setEditMode(false)}>Cancelar</button>
+                        <button onClick={handleEditPedido} className='botao_salvar'>Salvar Edições</button>
                       </div>
                     </>
                   )}
